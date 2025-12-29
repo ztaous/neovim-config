@@ -25,4 +25,5 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
-vim.opt.completeopt = { "menu", "menuone", "noselect" }x    
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+

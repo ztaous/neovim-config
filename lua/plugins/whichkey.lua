@@ -25,7 +25,7 @@ return {
         row = math.huge,
         col = math.huge,
         width = 28,
-        height = { min = 4, max = 10 },
+        height = { min = 4, max = 18 },
         border = "none",
         padding = { 0, 1 },
         title = false,
@@ -38,12 +38,14 @@ return {
 
       spec = {
         { "<leader>f", group = "Find" },
+        { "<leader>w", group = "Windows" },
         { "<leader>t", group = "Terminal" },
         { "<leader>c", group = "Code" },
         { "<leader>b", group = "Buffers" },
         { "<leader>e", group = "Explorer" },
         { "<leader>L", group = "LSP" },
         { "<leader>g", group = "Git" },
+        { "<leader>o", group = "OpenCode" },
       },
     },
   },

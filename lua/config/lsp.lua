@@ -12,6 +12,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
     map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
     map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
+
+    -- Inlay hints (parameter/type hints) when supported by the server
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and client.server_capabilities.inlayHintProvider then
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    end
   end,
 })
 
@@ -48,5 +54,5 @@ do
   end
 end
 
-
 vim.lsp.enable({ "lua_ls" })
+
