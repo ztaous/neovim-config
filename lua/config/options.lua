@@ -27,3 +27,13 @@ vim.opt.splitbelow = true
 
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
+-- Cursor visibility
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = "number,line"
+
+-- Different cursor shape per mode (works if terminal supports it)
+vim.opt.guicursor =
+  "n-v-c:block," ..
+  "i-ci:ver25," ..
+  "r-cr:hor20," ..
+  "o:hor50"
