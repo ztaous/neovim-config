@@ -45,7 +45,6 @@ return {
         { "<leader>e", group = "Explorer" },
         { "<leader>L", group = "LSP" },
         { "<leader>g", group = "Git" },
-        { "<leader>o", group = "OpenCode" },
       },
     },
   },

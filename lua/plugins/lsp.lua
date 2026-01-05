@@ -1,12 +1,65 @@
 return {
-  { "mason-org/mason.nvim", build = ":MasonUpdate" },
-  { "mason-org/mason-lspconfig.nvim" },
+  { "mason-org/mason.nvim", build = ":MasonUpdate", cmd = "Mason" },
 
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "mason-org/mason.nvim", "mason-org/mason-lspconfig.nvim" },
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "mason-org/mason.nvim" },
     config = function()
-      require("config.lsp")
+      require("mason").setup({ PATH = "prepend" })
+
+      -- completion capabilities (optional but standard with nvim-cmp)
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      local ok, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+      if ok then
+        capabilities = cmp_lsp.default_capabilities(capabilities)
+      end
+
+      -- server configs (defaults + shared capabilities)
+      local function c()
+        return { capabilities = capabilities }
+      end
+
+      vim.lsp.config("clangd", c())
+      vim.lsp.config("pyright", c())
+      vim.lsp.config("vtsls", c())
+      vim.lsp.config("lua_ls", {
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            diagnostics = { globals = { "vim" } },
+            workspace = { checkThirdParty = false },
+            telemetry = { enable = false },
+            hint = { enable = true },
+          },
+        },
+      })
+
+      -- buffer-local keys + inlay hints on attach
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+          local bufnr = args.buf
+          local map = function(mode, lhs, rhs, desc)
+            vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+          end
+
+          map("n", "gd", vim.lsp.buf.definition, "Go to definition")
+          map("n", "gr", vim.lsp.buf.references, "References")
+          map("n", "K", vim.lsp.buf.hover, "Hover")
+          map("n", "<leader>rn", vim.lsp.buf.rename, "Rename")
+          map("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
+          map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
+          map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
+
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client and client.supports_method and client:supports_method("textDocument/inlayHint") then
+            pcall(vim.lsp.inlay_hint.enable, true, { bufnr = bufnr })
+          end
+        end,
+      })
+
+      -- start clients for matching filetypes
+      vim.lsp.enable({ "clangd", "pyright", "vtsls", "lua_ls" })
     end,
   },
 }

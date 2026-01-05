@@ -2,9 +2,12 @@ return {
   {
     "akinsho/bufferline.nvim",
     version = "*",
+    event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("config.bufferline")
-    end,
+    opts = {
+      options = {
+        offsets = { { filetype = "NvimTree", separator = true } },
+      },
+    },
   },
 }

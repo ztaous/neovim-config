@@ -3,7 +3,7 @@ return {
     "nvim-tree/nvim-tree.lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
 
-    -- Lazy-load the explorer only when you use it
+    -- Lazy-load the explorer only when in use
     cmd = { "NvimTreeToggle", "NvimTreeFocus", "NvimTreeFindFile", "NvimTreeCollapse" },
     keys = {
       { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
@@ -16,15 +16,11 @@ return {
       filters = { dotfiles = false },
 
       -- Keep the explorer rooted correctly as you move between files/projects
-      sync_root_with_cwd = true,
+      sync_root_with_cwd = true, -- follow cwd
       update_focused_file = {
         enable = true,
-        update_root = true,
+        update_root = false, -- prevents auto-zoom into file’s folder
       },
     },
   },
-
-  -- Keep devicons as a dependency only
-  -- { "nvim-tree/nvim-web-devicons" },
 }
-
