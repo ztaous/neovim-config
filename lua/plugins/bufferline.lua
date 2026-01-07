@@ -6,8 +6,11 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       options = {
-        offsets = { { filetype = "NvimTree", separator = true } },
+        offsets = {
+          { filetype = "NvimTree", text = "", padding = 0, separator = true },
+        },
       },
     },
   },
 }
+
