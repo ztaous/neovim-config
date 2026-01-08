@@ -1,13 +1,17 @@
 return {
-  { "mason-org/mason.nvim", build = ":MasonUpdate", cmd = "Mason" },
+  {
+    "mason-org/mason.nvim",
+    lazy = false,
+    config = function()
+      require("mason").setup({ PATH = "prepend" })
+    end,
+  },
 
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "mason-org/mason.nvim" },
     config = function()
-      require("mason").setup({ PATH = "prepend" })
-
       -- completion capabilities (optional but standard with nvim-cmp)
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       local ok, cmp_lsp = pcall(require, "cmp_nvim_lsp")
@@ -23,6 +27,7 @@ return {
       vim.lsp.config("clangd", c())
       vim.lsp.config("pyright", c())
       vim.lsp.config("vtsls", c())
+
       vim.lsp.config("lua_ls", {
         capabilities = capabilities,
         settings = {
@@ -36,7 +41,9 @@ return {
       })
 
       -- buffer-local keys + inlay hints on attach
+      local group = vim.api.nvim_create_augroup("user_lsp", { clear = true })
       vim.api.nvim_create_autocmd("LspAttach", {
+        group = group,
         callback = function(args)
           local bufnr = args.buf
           local map = function(mode, lhs, rhs, desc)
@@ -63,3 +70,4 @@ return {
     end,
   },
 }
+

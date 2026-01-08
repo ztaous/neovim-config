@@ -11,7 +11,17 @@ return {
 
     opts = {
       hijack_netrw = true,
-      view = { width = 34 },
+      view = { 
+      	width = 34,
+      	preserve_window_proportions = true,
+      },
+      actions = {
+      	open_file = {
+      	  quit_on_open = false,
+      	  resize_window = false,
+      	},
+    	  },
+    
       renderer = { group_empty = true },
       filters = { dotfiles = false },
 

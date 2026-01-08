@@ -38,8 +38,7 @@ return {
 
       spec = {
         { "<leader>f", group = "Find" },
-        { "<leader>w", group = "Windows" },
-        { "<leader>t", group = "Terminal" },
+        { "<leader>t", group = "Tabs" },
         { "<leader>c", group = "Code" },
         { "<leader>b", group = "Buffers" },
         { "<leader>e", group = "Explorer" },
