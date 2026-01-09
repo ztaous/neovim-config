@@ -1,7 +1,7 @@
 local M = {}
 
 local path = vim.fn.stdpath("state") .. "/colorscheme.txt"
-local default = "gruvbox"
+local default = ""
 
 function M.apply(name)
   if name and name ~= "" then

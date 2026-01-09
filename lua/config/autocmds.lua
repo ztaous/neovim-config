@@ -7,10 +7,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Persist colorscheme
 vim.api.nvim_create_autocmd("ColorScheme", {
+  group = group,
   callback = function()
     require("config.colorscheme").save()
+    vim.api.nvim_set_hl(0, "BufferlineTreeTitle", { bold = true, link = "Title" })
   end,
 })
+
 
 -- Keep cwd at project root
 vim.api.nvim_create_autocmd("BufEnter", {
