@@ -1,6 +1,6 @@
-# My Neovim config
+# neovim-config
 
-A Neovim config built around a few useful plugins for IDE usage.
+My Neovim config built around a few useful plugins for IDE usage.
 
 ## Requirements
 
