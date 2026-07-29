@@ -47,6 +47,8 @@ The leader key is `Space`.
 - `K`: show information for the item under the cursor
 - `<leader>rn`: rename a symbol
 - `<leader>ca`: show code actions
+- `<leader>cd`: show the diagnostic under the cursor
+- `<leader>cD`: list diagnostics
 - `[d` / `]d`: previous or next diagnostic
 - `<C-Space>`: request completion
 - `<C-n>` / `<C-p>`: move through completion results
@@ -62,7 +64,9 @@ The leader key is `Space`.
 - `<leader>gr`: reset a hunk
 - `<leader>g.`: open Git status
 - `<leader>gc`: commit
-- `<leader>gd`: open a vertical diff
+- `<leader>gd`: diff the current file
+- `<leader>gD`: diff all repository changes
+- `gt` / `gT`: next or previous diff tab
 - `<leader>gm`: open merge conflicts in Fugitive's mergetool
 - `<leader>gB`: show blame
 
@@ -90,6 +94,7 @@ The leader key is `Space`.
 - **nvim-tree**: file explorer
 - **telescope.nvim**: file, text, buffer, and symbol search
 - **nvim-treesitter**: syntax parsing
+- **which-key.nvim**: keybinding hints
 - **mason.nvim and nvim-lspconfig**: language servers
 - **conform.nvim**: formatting
 - **gitsigns.nvim and vim-fugitive**: Git

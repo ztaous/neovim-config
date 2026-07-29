@@ -63,6 +63,7 @@ return {
       { "<leader>g.", "<cmd>Git<cr>", desc = "Git: status" },
       { "<leader>gc", "<cmd>Git commit<cr>", desc = "Git: commit" },
       { "<leader>gd", "<cmd>Gvdiffsplit<cr>", desc = "Git: diff" },
+      { "<leader>gD", "<cmd>Git difftool -y HEAD<cr>", desc = "Git: diff repository" },
       { "<leader>gm", "<cmd>Git mergetool<cr>", desc = "Git: mergetool" },
       { "<leader>gB", "<cmd>Gblame<cr>", desc = "Git: blame" },
     },
