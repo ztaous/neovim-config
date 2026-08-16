@@ -16,6 +16,17 @@ warn_neovim_version() {
 }
 
 if [ "$(uname)" = "Darwin" ]; then
+  if [ "$(uname -m)" != "arm64" ]; then
+    echo "this macOS setup targets Apple Silicon" >&2
+    exit 1
+  fi
+
+  if ! command -v brew >/dev/null 2>&1; then
+    echo "installing Homebrew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+
   packages=(bash git tmux fzf ripgrep fd neovim tree-sitter-cli)
   missing=()
   for package in "${packages[@]}"; do

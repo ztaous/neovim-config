@@ -89,6 +89,11 @@ link_git() {
   link git/config         .config/git/config
 }
 
+link_bash() {
+  link bash/bash_profile  .bash_profile
+  link bash/bashrc        .bashrc
+}
+
 link_tmux() {
   link tmux/tmux.conf     .config/tmux/tmux.conf
 }
@@ -112,8 +117,14 @@ gen_ssh_key() {
   fi
   ssh-keygen -t ed25519 -f "$SSH_KEY" -C "$(whoami)@$(hostname)"
   echo
-  echo "add this public key to GitHub (auth and/or signing):"
-  cat "$SSH_KEY.pub"
+  if [ "$(uname)" = "Darwin" ]; then
+    pbcopy < "$SSH_KEY.pub"
+    echo "public key copied to the clipboard"
+  else
+    cat "$SSH_KEY.pub"
+  fi
+  echo "add the key at https://github.com/settings/keys"
+  echo "add it once as an authentication key and again as a signing key"
 }
 
 setup_packages() {
@@ -131,18 +142,19 @@ setup_all() {
   setup_packages
   link_format
   link_git
+  link_bash
   setup_ssh
   link_tmux
   link_nvim
 }
 
 usage() {
-  echo "usage: ${0##*/} [all|packages|format|git|ssh|tmux|nvim]..."
+  echo "usage: ${0##*/} [all|packages|format|git|bash|ssh|tmux|nvim]..."
 }
 
 validate_target() {
   case "$1" in
-    all|packages|format|git|ssh|tmux|nvim) ;;
+    all|packages|format|git|bash|ssh|tmux|nvim) ;;
     *)
       echo "unknown target: $1" >&2
       usage >&2
@@ -157,6 +169,7 @@ run_target() {
     packages) setup_packages ;;
     format) link_format ;;
     git) link_git ;;
+    bash) link_bash ;;
     ssh) setup_ssh ;;
     tmux) link_tmux ;;
     nvim) link_nvim ;;

@@ -2,3 +2,6 @@ Host github.com
     User git
     IdentityFile ~/.ssh/id_ed25519_github
     IdentitiesOnly yes
+    AddKeysToAgent yes
+    IgnoreUnknown UseKeychain
+    UseKeychain yes
