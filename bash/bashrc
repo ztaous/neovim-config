@@ -8,6 +8,16 @@ HISTSIZE=10000
 HISTFILESIZE=20000
 shopt -s histappend checkwinsize
 
+sync_history() {
+  history -a
+  history -n
+}
+
+case ";${PROMPT_COMMAND:-};" in
+  *";sync_history;"*) ;;
+  *) PROMPT_COMMAND="sync_history${PROMPT_COMMAND:+; $PROMPT_COMMAND}" ;;
+esac
+
 PS1='\u@\h \W \$ '
 
 if command -v fzf >/dev/null 2>&1; then
