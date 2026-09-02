@@ -1,5 +1,8 @@
 if [ -x /opt/homebrew/bin/brew ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
+  if [ -d /opt/homebrew/opt/openjdk@21/bin ]; then
+    export PATH="/opt/homebrew/opt/openjdk@21/bin:$PATH"
+  fi
 fi
 
 case ":$PATH:" in

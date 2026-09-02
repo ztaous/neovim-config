@@ -13,6 +13,8 @@ return {
         "c",
         "cpp",
         "python",
+        "rust",
+        "sql",
         "javascript",
         "typescript",
         "html",

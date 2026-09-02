@@ -1,6 +1,12 @@
 return {
   {
     "EdenEast/nightfox.nvim",
+    dependencies = {
+      { "rose-pine/neovim", name = "rose-pine" },
+      "ellisonleao/gruvbox.nvim",
+      "savq/melange-nvim",
+      "rebelot/kanagawa.nvim",
+    },
     priority = 1000,
     lazy = false,
     config = function()

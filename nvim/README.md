@@ -15,9 +15,10 @@ Neovim configuration used by this dotfiles repository.
 Run `./run.sh nvim` from the root of the dotfiles repository, then open
 Neovim. lazy.nvim installs missing plugins on the first start.
 
-Language servers are configured for C, C++, Python, JavaScript, TypeScript,
-and Lua. Use `:Mason` to install `clangd`, `pyright`, `vtsls`, and
-`lua-language-server` when needed.
+Language servers are configured for C, C++, Java, Python, Rust, SQL,
+JavaScript, TypeScript, and Lua. Mason automatically installs `jdtls`,
+`pyright`, `rust-analyzer`, `sqls`, `vtsls`, and `lua-language-server`;
+`clangd` is supplied by the system toolchain.
 
 ## Keybindings
 
@@ -77,7 +78,7 @@ The leader key is `Space`.
 
 ## Formatters
 
-- Java: `google-java-format`
+- Java: Eclipse JDT through `jdtls` (four-space indentation)
 - C and C++: `clang-format`
 - Go: `gofmt`
 - Rust: `rustfmt`
@@ -90,12 +91,14 @@ The leader key is `Space`.
 ## Plugins
 
 - **lazy.nvim**: plugin installation
-- **nightfox.nvim**: optional colorschemes
+- **nightfox.nvim, rose-pine, gruvbox.nvim, melange-nvim, and kanagawa.nvim**:
+  optional colorschemes
 - **nvim-tree**: file explorer
 - **telescope.nvim**: file, text, buffer, and symbol search
 - **nvim-treesitter**: syntax parsing
 - **which-key.nvim**: keybinding hints
-- **mason.nvim and nvim-lspconfig**: language servers
+- **mason.nvim, mason-lspconfig.nvim, and nvim-lspconfig**: language servers
+  and development tools
 - **conform.nvim**: formatting
 - **gitsigns.nvim and vim-fugitive**: Git
 - **nvim-autopairs and nvim-surround**: pairs and surrounding edits

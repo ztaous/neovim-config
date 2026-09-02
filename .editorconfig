@@ -21,5 +21,8 @@ indent_style = tab
 indent_size = 4
 tab_width = 4
 
-[*.{java,js,jsx,ts,tsx,json,jsonc,css,scss,html}]
+[*.java]
+indent_size = 4
+
+[*.{js,jsx,ts,tsx,json,jsonc,css,scss,html}]
 indent_size = 2

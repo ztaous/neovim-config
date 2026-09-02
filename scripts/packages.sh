@@ -27,7 +27,7 @@ if [ "$(uname)" = "Darwin" ]; then
   fi
   eval "$(/opt/homebrew/bin/brew shellenv)"
 
-  packages=(bash git tmux fzf ripgrep fd neovim tree-sitter-cli)
+  packages=(bash git tmux fzf ripgrep fd neovim tree-sitter-cli go node openjdk@21 python rust sqlite)
   missing=()
   for package in "${packages[@]}"; do
     brew list --versions "$package" >/dev/null 2>&1 || missing+=("$package")
@@ -43,7 +43,7 @@ fi
 
 case "${ID:-}" in
   debian|ubuntu)
-    packages=(git tmux fzf ripgrep fd-find neovim tree-sitter-cli build-essential)
+    packages=(git tmux fzf ripgrep fd-find neovim tree-sitter-cli build-essential golang-go nodejs npm openjdk-21-jdk python3 python3-pip python3-venv rustc cargo rustfmt sqlite3)
     missing=()
     for package in "${packages[@]}"; do
       dpkg-query -W -f='${Status}' "$package" 2>/dev/null | grep -qx "install ok installed" ||
@@ -55,7 +55,7 @@ case "${ID:-}" in
     fi
     ;;
   fedora|rhel|centos)
-    packages=(git tmux fzf ripgrep fd-find neovim tree-sitter-cli gcc)
+    packages=(git tmux fzf ripgrep fd-find neovim tree-sitter-cli gcc golang nodejs npm java-21-openjdk-devel python3 python3-pip rust cargo rustfmt sqlite)
     missing=()
     for package in "${packages[@]}"; do
       rpm -q "$package" >/dev/null 2>&1 || missing+=("$package")
@@ -65,7 +65,7 @@ case "${ID:-}" in
     fi
     ;;
   arch)
-    packages=(git tmux fzf ripgrep fd neovim tree-sitter-cli gcc)
+    packages=(git tmux fzf ripgrep fd neovim tree-sitter-cli gcc go nodejs npm jdk21-openjdk python python-pip rust sqlite)
     missing=()
     for package in "${packages[@]}"; do
       pacman -Q "$package" >/dev/null 2>&1 || missing+=("$package")

@@ -4,13 +4,52 @@ return {
     lazy = false,
     config = function()
       require("mason").setup({ PATH = "prepend" })
+
+      local registry = require("mason-registry")
+      local tools = {
+        "clang-format",
+        "prettier",
+        "ruff",
+        "shfmt",
+        "sqlfluff",
+        "stylua",
+      }
+
+      registry.refresh(function(success)
+        if not success then
+          return
+        end
+
+        for _, name in ipairs(tools) do
+          local package = registry.get_package(name)
+          if not package:is_installed() then
+            package:install()
+          end
+        end
+      end)
     end,
+  },
+
+  {
+    "mason-org/mason-lspconfig.nvim",
+    lazy = false,
+    dependencies = {
+      "mason-org/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    opts = {
+      ensure_installed = { "jdtls", "lua_ls", "pyright", "rust_analyzer", "sqls", "vtsls" },
+      automatic_enable = false,
+    },
   },
 
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "mason-org/mason.nvim" },
+    dependencies = {
+      "mason-org/mason.nvim",
+      "mason-org/mason-lspconfig.nvim",
+    },
     config = function()
       vim.lsp.config("lua_ls", {
         settings = {
@@ -22,6 +61,8 @@ return {
           },
         },
       })
+
+      vim.lsp.config("jdtls", {})
 
       local group = vim.api.nvim_create_augroup("user_lsp", { clear = true })
       vim.api.nvim_create_autocmd("LspAttach", {
@@ -53,7 +94,7 @@ return {
         end,
       })
 
-      vim.lsp.enable({ "clangd", "pyright", "vtsls", "lua_ls" })
+      vim.lsp.enable({ "clangd", "jdtls", "lua_ls", "pyright", "rust_analyzer", "sqls", "vtsls" })
     end,
   },
 }
