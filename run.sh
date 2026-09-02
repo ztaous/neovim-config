@@ -11,6 +11,27 @@ clear_backup() {
   fi
 }
 
+clear_backups() {
+  local path
+  local paths=(
+    "$HOME/.editorconfig"
+    "$HOME/.clang-format"
+    "$HOME/.bash_profile"
+    "$HOME/.bashrc"
+    "$HOME/.config/git/config"
+    "$HOME/.ssh/config"
+    "$HOME/.config/tmux/tmux.conf"
+    "$HOME/.config/nvim"
+  )
+
+  for path in "${paths[@]}"; do
+    if [ -e "$path.bak" ] || [ -L "$path.bak" ]; then
+      clear_backup "$path"
+      echo "removed $path.bak"
+    fi
+  done
+}
+
 link() {
   local src="$DOTFILES/$1" dst="$HOME/$2"
   if [ ! -e "$src" ]; then
@@ -150,6 +171,7 @@ setup_all() {
 
 usage() {
   echo "usage: ${0##*/} [all|packages|format|git|bash|ssh|tmux|nvim]..."
+  echo "       ${0##*/} --clear-backups"
 }
 
 validate_target() {
@@ -183,6 +205,11 @@ fi
 
 if [ "$#" -eq 1 ] && { [ "$1" = "-h" ] || [ "$1" = "--help" ]; }; then
   usage
+  exit
+fi
+
+if [ "$#" -eq 1 ] && [ "$1" = "--clear-backups" ]; then
+  clear_backups
   exit
 fi
 

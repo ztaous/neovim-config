@@ -41,6 +41,13 @@ An existing destination is moved to the same path with a `.bak` suffix before
 a link is created. A later replacement overwrites the previous backup.
 Running the script again leaves correct links unchanged.
 
+Remove backups created for managed configuration paths without changing the
+active configuration:
+
+```sh
+./run.sh --clear-backups
+```
+
 After generating an SSH key on macOS, the script copies its public key to the
 clipboard. Add it at <https://github.com/settings/keys> once as an
 authentication key and again as a signing key.
