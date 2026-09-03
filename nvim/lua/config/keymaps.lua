@@ -12,6 +12,9 @@ map("n", "<leader>bb", "<cmd>b#<cr>", { desc = "Buffer: alternate" })
 map("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "Tab: new" })
 map("n", "<leader>tc", "<cmd>tabclose<cr>", { desc = "Tab: close" })
 
+-- Terminal
+map("t", "<Esc><Esc>", [[<C-\><C-n>]], { desc = "Terminal: normal mode" })
+
 -- Diagnostics (c*)
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Code: diagnostic" })
 map("n", "<leader>cD", function()
